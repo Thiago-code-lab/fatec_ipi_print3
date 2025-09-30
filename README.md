@@ -1,11 +1,11 @@
 # Projeto Integrador 3 - Fatec Ipiranga (Pastor Éneas Tognini)
 
-## 👥 Integrantes
+## 👥 Integrantes da Equipe
 
 - Thiago Cardoso Davi (RA: 2041382421015)
 - Lucas Antonio Evangelista Dos Santos (RA: 2041382411010)
 - Daniel Fernando Dos Santos (RA: 2041382421027)
-- Murilo Santos Da Sikva (RA: 2041382411043)
+- Murilo Santos Da Silva (RA: 2041382411043)
 - Pablo Roberto Da Silva Costa (RA: 2041382421005)
 - William Nunes Vilany (RA: 2041382421030)
 
@@ -17,7 +17,11 @@ Aplicativo web para planejamento de viagens em grupo, focado no Caminho de Santi
 
 ## 🎯 Objetivo
 
-Analisar o comportamento e as preferências dos viajantes, oferecendo uma ferramenta intuitiva para planejamento de roteiros de viagem. O objetivo é aumentar a satisfação do cliente através de uma experiência personalizada e fácil de usar.
+Utilizando a análise de Big Data, nosso objetivo é mergulhar no comportamento e nas preferências dos viajantes para oferecer pacotes de viagem totalmente personalizados. A meta é clara:
+
+- Aumentar a satisfação do cliente, criando experiências únicas.
+- Otimizar a receita da empresa de turismo com ofertas direcionadas.
+- Prever tendências de mercado, garantindo decisões estratégicas mais eficientes e proativas.
 
 ## 🚀 Funcionalidades
 
@@ -177,3 +181,8 @@ Em caso de dúvidas ou problemas, abra uma issue no repositório do projeto.
   - `SECRET_KEY`, `JWT_SECRET_KEY` (obrigatório trocar em produção)
   - `DATABASE_URL` (padrão: `sqlite:///tour4friends.db`)
   - `CORS_ORIGINS` (ex.: `http://localhost:5173`)
+=======
+
+
+
+>>>>>>> 73c66f3c6e8b2e92adaa24569814e065d57a573d
