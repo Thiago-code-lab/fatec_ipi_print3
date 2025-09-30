@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour4Friends - Caminho de Santiago</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0d9488;
+            --secondary-color: #0f766e;
+            --accent-color: #14b8a6;
+            --light-gray: #f3f4f6;
+            --dark-gray: #4b5563;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .logo p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .user-actions button {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .user-actions button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Login Screen */
+        #login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+        }
+
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Itinerary List */
+        #app-content {
+            display: none;
+        }
+
+        .page-title {
+            text-align: center;
+            margin: 20px 0 30px;
+            color: var(--primary-color);
+        }
+
+        .day-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .day-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .day-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .day-notes {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            color: #555;
+        }
+
+        /* Day Details */
+        #day-details {
+            display: none;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-button:hover {
+            text-decoration: underline;
+        }
+
+        .map-container {
+            height: 300px;
+            margin: 15px 0;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #666;
+        }
+
+        .pois-list {
+            margin-top: 20px;
+        }
+
+        .pois-list h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .poi {
+            background: var(--light-gray);
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        /* Chat */
+        .chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            border: none;
+            font-size: 1.5rem;
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .chat-container.visible {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            clear: both;
+        }
+
+        .message.user {
+            float: right;
+            margin-left: auto;
+        }
+
+        .message.support {
+            float: left;
+            margin-right: auto;
+        }
+
+        .message-content {
+            padding: 10px 15px;
+            border-radius: 18px;
+            display: inline-block;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .user .message-content {
+            background-color: var(--accent-color);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .support .message-content {
+            background-color: #e5e7eb;
+            color: #111827;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: #6b7280;
+            margin-top: 3px;
+            text-align: right;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .chat-input button {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .chat-container {
+                width: 90%;
+                right: 5%;
+                bottom: 80px;
+                height: 60vh;
+            }
+
+            .day-card h3 {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .day-info {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="login-screen">
+        <div class="login-container">
+            <h2>Bem-vindo ao Tour4Friends</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" required placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required placeholder="Sua senha">
+                </div>
+                <button type="submit" class="btn">Entrar</button>
+            </form>
+            <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
+                Não tem uma conta? Use email: admin@example.com / senha: senha123
+            </p>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div id="app-content">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Tour4Friends</h1>
+                    <p>Seu guia para o Caminho de Santiago</p>
+                </div>
+                <div class="user-actions">
+                    <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <h2 class="page-title" id="itinerary-title">Seu Roteiro</h2>
+            
+            <!-- Lista de Dias -->
+            <div id="itinerary-list">
+                <div class="loading">Carregando roteiro...</div>
+                <!-- Os dias serão inseridos aqui via JavaScript -->
+            </div>
+            
+            <!-- Detalhes do Dia -->
+            <div id="day-details">
+                <!-- Conteúdo será preenchido via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat de Suporte -->
+    <button class="chat-button" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+            <h3>Suporte ao Peregrino</h3>
+            <button class="close-chat" onclick="toggleChat()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message support fade-in">
+                <div class="message-content">
+                    Olá! Como posso ajudar você hoje em sua jornada pelo Caminho de Santiago?
+                </div>
+                <div class="message-time">Agora</div>
+            </div>
+        </div>
+        <form class="chat-input" id="chat-form">
+            <input type="text" placeholder="Digite sua mensagem..." required>
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+</body>
+</html>
