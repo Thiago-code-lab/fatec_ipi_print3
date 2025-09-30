@@ -34,7 +34,7 @@ Tour4Friends é uma plataforma web que revoluciona o planejamento de viagens uti
 </td>
 <td align="center" width="50%">
 <h3>📖 Disciplina</h3>
-<p>Projeto Integrador 3<br/>Análise e Desenvolvimento de Sistemas</p>
+<p>Projeto Integrador 3<br/>Big Data para Negócios</p>
 </td>
 </tr>
 </table>
